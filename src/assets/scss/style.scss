@@ -1,0 +1,8 @@
+@use '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.brand_border {
+  // width: 100px;
+  aspect-ratio: 1/1;
+  border: 1px solid white;
+  border-radius: 50%;
+}
