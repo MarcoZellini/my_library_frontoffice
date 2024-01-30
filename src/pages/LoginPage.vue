@@ -35,11 +35,17 @@ export default {
             axios
                 .post(state.baseURL + '/login', payload)
                 .then(response => {
-
+                    // console.log(response.data.result);
                     if (response.data.success) {
-                        this.state.bookList = response.data.result.books;
-                        this.state.userId = response.data.result.user_id
-                        router.push({ name: 'book_list' })
+                        const user = {
+                            id: response.data.result.user_id,
+                            name: response.data.result.user_name,
+                            lastname: response.data.result.user_lastname
+                        }
+                        this.state.user = user;
+
+                        // this.state.user_id = response.data.result.user_id;
+                        router.push({ name: 'books' })
                     }
 
                 })

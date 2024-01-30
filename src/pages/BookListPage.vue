@@ -1,38 +1,37 @@
 <template>
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container py-5">
-            <h1 class="display-3 fw-bold">All Your Books Are Here!</h1>
-            <p class="col-md-8 fs-4">
+            <h1 class="display-3 fw-bold">Hi {{ `${this.state.user?.name}` }} </h1>
+            <h2 class="fs-2">Check out all your Books!</h2>
+            <!-- <p class="col-md-8 fs-4">
                 Scroll this page to look at all your books!
-            </p>
+            </p> -->
         </div>
     </div>
     <div id="book_list" class="py-3 py-md-5">
         <div class="container">
-            <nav aria-label="Page navigation">
-                <ul class="pagination    ">
-                    <!-- <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li> -->
-                    <li class="page-item" :class="this.currentPage === parseInt(link.label) ? 'active' : ''"
-                        aria-current="page" v-for="link in this.links">
-                        <span @click="this.fetchData(link.url)" class="page-link" href="#"><span
-                                v-html="link.label"></span></span>
-                    </li>
-                    <!-- <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li> -->
-                </ul>
-            </nav>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary mb-3 me-3">
+                    <font-awesome-icon :icon="['fas', 'plus']" />
+                    Aggiungi Libro
+                </button>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li role="button" class="page-item"
+                            :class="this.state.currentPage === parseInt(link.label) ? 'active' : ''" aria-current="page"
+                            v-if="this.state.links" v-for="link in this.state.links"
+                            @click="this.state.fetchData(link.url)">
+                            <span class="page-link" href="#"><span v-html="link.label"></span></span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4">
-                <div class="col" v-for="book in state.bookList">
-                    <AppBook :title="book.title" :author="book.author" />
+                <div v-if="this.state.bookList" class="col" v-for="book in this.state.bookList">
+                    <AppBook :bookId="book.id" :title="book.title" :author="book.author" />
                 </div>
+                <div v-else>There are no books in here! Start adding one!</div>
             </div>
         </div>
     </div>
@@ -42,46 +41,22 @@
 import { state } from '../state.js';
 import { router } from '../router.js'
 import AppBook from '../components/AppBook.vue';
-import axios from 'axios';
-
-
 
 export default {
     data() {
         return {
             state,
-            links: null, //number of pages containing books
-            currentPage: 1
         }
     },
     components: {
         AppBook
     },
-    methods: {
-        fetchData(url) {
-
-            const payload = {
-                user_id: state.userId
-            }
-
-            axios.post(url, payload)
-                .then(response => {
-                    console.log(response.data);
-                    this.state.bookList = response.data.result.books.data;
-                    this.currentPage = response.data.result.books.current_page;
-                    this.links = response.data.result.books.links;
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-        }
-    },
     mounted() {
-        if (!state.userId) {
+        if (!this.state.user) {
             router.push({ name: 'login' })
         }
 
-        this.fetchData(state.baseURL + `/books?page=${this.currentPage}`);
+        this.state.fetchData(this.state.baseURL + `/books?page=${this.state.currentPage}`);
     }
 }
 </script>

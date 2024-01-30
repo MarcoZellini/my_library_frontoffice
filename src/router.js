@@ -1,8 +1,9 @@
 import { createWebHashHistory, createRouter } from 'vue-router';
 
-import HomePage from './pages/HomePage.vue'
-import LoginPage from './pages/LoginPage.vue'
-import BookListPage from './pages/BookListPage.vue'
+import HomePage from './pages/HomePage.vue';
+import LoginPage from './pages/LoginPage.vue';
+import BookListPage from './pages/BookListPage.vue';
+import SingleBookPage from './pages/SingleBookPage.vue';
 
 const routes = [
     {
@@ -16,9 +17,14 @@ const routes = [
         component: LoginPage
     },
     {
-        path: '/bookList',
-        name: 'book_list',
+        path: '/books',
+        name: 'books',
         component: BookListPage
+    },
+    {
+        path: '/books/:id',
+        name: 'book',
+        component: SingleBookPage
     },
 ];
 

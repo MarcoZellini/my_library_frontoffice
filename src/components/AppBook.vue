@@ -1,11 +1,18 @@
 <template>
-    <div class="book">
-        <img class="img-fluid card-img-top book_image" src="../assets/img/copertina_libro.jpg" alt="book cover image">
-        <div class="book_info">
-            <div class="fs-3 book_title">{{ title }}</div>
-            <div class="book_author">{{ author }}</div>
+    <router-link :to="{
+        name: 'book',
+        params: {
+            id: bookId
+        }
+    }">
+        <div class="book">
+            <img class="img-fluid card-img-top book_image" src="../assets/img/copertina_libro.jpg" alt="book cover image">
+            <div class="book_info">
+                <div class="fs-3 book_title">{{ title }}</div>
+                <div class="book_author">{{ author }}</div>
+            </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -19,6 +26,7 @@ export default {
         }
     },
     props: {
+        bookId: Number,
         title: String,
         author: String
     }
@@ -29,8 +37,15 @@ export default {
 .book {
     position: relative;
 
+    &~a {
+        color: black;
+    }
+
     .book_image {
         border-radius: 10px;
+        aspect-ratio: 1/1.3;
+        object-fit: cover;
+        object-position: bottom;
     }
 
     .book_info {
