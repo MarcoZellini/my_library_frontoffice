@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage.vue';
 import LoginPage from './pages/LoginPage.vue';
 import BookListPage from './pages/BookListPage.vue';
 import SingleBookPage from './pages/SingleBookPage.vue';
+import NewBookPage from './pages/NewBookPage.vue';
 
 const routes = [
     {
@@ -25,6 +26,11 @@ const routes = [
         path: '/books/:id',
         name: 'book',
         component: SingleBookPage
+    },
+    {
+        path: '/books/create',
+        name: 'new_book',
+        component: NewBookPage
     },
 ];
 

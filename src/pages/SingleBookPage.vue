@@ -23,7 +23,7 @@
                 <img class="img-fluid my-2" src="../assets/img/copertina_libro.jpg" alt="">
 
 
-                <p class="fs-6">
+                <p class="fs-6" v-if="this.state.book?.plot">
                     <strong>Plot: </strong>{{ this.state.book.plot }}
                 </p>
                 <button class="btn btn-warning btn-lg me-2" type="button">
@@ -36,7 +36,9 @@
                 </button>
             </div>
         </div>
-        <div v-else> Sorry, this book is unavialable! </div>
+        <div v-else>
+            <h1 class="text-center my-3"> Sorry, this book is unavailable! </h1>
+        </div>
 
     </div>
 </template>
@@ -54,6 +56,7 @@ export default {
     },
     methods: {
         goBack() {
+            this.state.book = null;
             router.push({ name: 'books' })
         }
     },

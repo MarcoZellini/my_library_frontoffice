@@ -6,7 +6,7 @@ export const state = reactive({
     baseURL: 'http://127.0.0.1:8000/api',
     bookList: [],
     book: null,
-    userId: null,
+    // userId: null,
     user: null,
     links: [], //number of pages containing books
     currentPage: 1,
@@ -19,7 +19,7 @@ export const state = reactive({
 
             axios.post(url, payload)
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.bookList = response.data.result.books.data;
                     this.currentPage = response.data.result.books.current_page;
                     this.links = response.data.result.books.links;

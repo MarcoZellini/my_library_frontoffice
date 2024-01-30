@@ -11,10 +11,9 @@
     <div id="book_list" class="py-3 py-md-5">
         <div class="container">
             <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-primary mb-3 me-3">
+                <router-link class="btn btn-primary mb-3 me-3" :to="{ name: 'new_book' }">
                     <font-awesome-icon :icon="['fas', 'plus']" />
-                    Aggiungi Libro
-                </button>
+                    Aggiungi Libro</router-link>
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <li role="button" class="page-item"
