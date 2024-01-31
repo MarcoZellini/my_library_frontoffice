@@ -45,6 +45,7 @@ export default {
     }, methods: {
         logout() {
             this.state.user = null;
+            localStorage.removeItem('user');
         }
     }
 }

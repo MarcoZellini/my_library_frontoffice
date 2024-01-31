@@ -24,3 +24,5 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 library.add(faTwitter, faInstagram, faFacebook, faArrowLeft, faPenToSquare, faTrash, faPlus)
 
 createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app');
+
+

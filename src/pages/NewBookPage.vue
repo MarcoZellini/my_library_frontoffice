@@ -1,5 +1,11 @@
 <template>
     <div class="container my-5">
+        <div class="btn btn-primary mb-3">
+            <router-link :to="{ name: 'books' }" class="text-white text-decoration-none">
+                <font-awesome-icon :icon="['fas', 'arrow-left']" class="me-2" />Back
+            </router-link>
+        </div>
+
         <h2 class="text-center mb-3">Fill out this form to add a new book to your library!</h2>
         <div v-if="this.message" class="alert alert-success" role="alert">
             <strong>Message</strong> {{ this.message }}
@@ -76,11 +82,6 @@ export default {
                         this.errors = error.response.data.errors
                     }
                 })
-        }
-    },
-    mounted() {
-        if (!this.state.user) {
-            router.push({ name: 'login' })
         }
     }
 }

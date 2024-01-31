@@ -20,7 +20,8 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="d-flex align-items-center">
-                                    <button type="button" class="btn btn-primary btn-sm me-2 mt-2">
+                                    <button type="button" class="btn btn-primary btn-sm me-2 mt-2"
+                                        @click="this.updateTotalReadings()">
                                         <font-awesome-icon :icon="['fas', 'plus']" />
                                     </button>
                                     <small>
@@ -39,10 +40,39 @@
                                     <font-awesome-icon :icon="['far', 'pen-to-square']" />
                                     Modifica
                                 </router-link>
-                                <button class="btn btn-danger btn-lg me-2 my-2" type="button">
+                                <!-- Modal trigger button -->
+                                <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
+                                    data-bs-target="#delete_book">
                                     <font-awesome-icon :icon="['fas', 'trash']" />
                                     Elimina
                                 </button>
+
+                                <!-- Modal Body -->
+                                <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+                                <div class="modal fade" id="delete_book" tabindex="-1" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+                                        role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modal">
+                                                    Delete Book
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">Warning! This operation cannot be undone!</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-danger"
+                                                    @click="this.deleteBook(this.$route.params.id)">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="col-lg-2 d-none d-lg-block"></div>
                         </div>
@@ -60,6 +90,8 @@
 <script>
 import { state } from '../state.js'
 import { router } from '../router.js'
+import axios from 'axios'
+import * as bootstrap from 'bootstrap'
 
 
 export default {
@@ -69,17 +101,67 @@ export default {
         }
     },
     methods: {
+        updateTotalReadings() {
+            const payload = {
+                user_id: this.state.user.id
+            }
+
+            axios
+                .patch(`${this.state.baseURL}/books/${this.$route.params.id}/update_readings`, payload)
+                .then(response => {
+                    console.log(response);
+                    this.updatePageBook();
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        },
+        updatePageBook() {
+            const url = `${this.state.baseURL}/books/${this.$route.params.id}`;
+            this.state.fetchSingleBook(url);
+        },
+        deleteBook() {
+            const payload = {
+                user_id: this.state.user.id
+            }
+
+            axios.delete(`${this.state.baseURL}/books/${this.$route.params.id}/delete`, { data: payload })
+                .then(response => {
+                    // console.log(response);
+
+                    const deleteModal = new bootstrap.Modal(document.getElementById('delete_book'));
+                    deleteModal.hide();
+                    const backdrop = document.querySelector('.modal-backdrop.fade.show')
+                    backdrop.parentNode.removeChild(backdrop);
+
+                    const bodyElement = document.querySelector('body'); // Get the element to remove the class from
+                    const className = 'modal-open'; // The class to remove
+
+                    if (bodyElement.classList.contains(className)) {
+                        bodyElement.classList.remove(className);
+                        bodyElement.style.overflow = 'auto';
+                        bodyElement.style.paddingRight = '0';
+                    }
+
+                    this.state.book = null;
+                    this.state.bookDeleted = true;
+
+                    router.push({ name: 'books' })
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+
+        },
         goBack() {
             this.state.book = null;
             router.push({ name: 'books' })
         }
     },
     mounted() {
-        if (!this.state.user) {
-            router.push({ name: 'login' })
-        }
-        const url = `${this.state.baseURL}/books/${this.$route.params.id}`;
-        this.state.fetchSingleBook(url);
+        /* const url = `${this.state.baseURL}/books/${this.$route.params.id}`;
+        this.state.fetchSingleBook(url); */
+        this.updatePageBook();
     }
 }
 </script>

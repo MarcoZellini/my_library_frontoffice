@@ -1,6 +1,6 @@
 <template>
     <div class="container my-5">
-        <div class="btn btn-primary">
+        <div class="btn btn-primary mb-3">
             <router-link :to="{ name: 'book', params: { id: this.$route.params.id } }"
                 class="text-white text-decoration-none">
                 <font-awesome-icon :icon="['fas', 'arrow-left']" class="me-2" />Back
@@ -76,7 +76,7 @@ export default {
                 plot: this.state.book.plot,
             }
             axios
-                .post(`${this.state.baseURL}/books/${this.$route.params.id}/edit`, book)
+                .patch(`${this.state.baseURL}/books/${this.$route.params.id}/edit`, book)
                 .then(response => {
                     console.log(response);
                     if (response.data.success) {
@@ -91,35 +91,9 @@ export default {
                     }
                 })
         }
-        /* createBook() {
-            const book = {
-                user_id: this.state.user.id,
-                title: this.book.title,
-                author: this.book.author,
-                isbn: this.book.isbn,
-                plot: this.book.plot,
-            }
-            axios
-                .post(`${this.state.baseURL}/books/create`, book)
-                .then(response => {
-
-                    if (response.data.success) {
-                        this.message = 'Book Edited Successfully';
-                    }
-
-                })
-                .catch(error => {
-                    console.log(error);
-                    if (error.response.data.errors) {
-                        this.errors = error.response.data.errors
-                    }
-                })
-        } */
     },
     mounted() {
-        if (!this.state.user) {
-            router.push({ name: 'login' })
-        } else if (!this.state.book) {
+        if (!this.state.book) {
             const url = `${this.state.baseURL}/books/${this.$route.params.id}`;
             this.state.fetchSingleBook(url);
         }

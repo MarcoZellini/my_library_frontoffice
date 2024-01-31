@@ -6,12 +6,13 @@ export const state = reactive({
     baseURL: 'http://127.0.0.1:8000/api',
     bookList: [],
     book: null,
-    // user: null,
-    user: { //Solo per facilitare il debug, da togliere e ripristinare quello con null
+    bookDeleted: false,
+    user: null,
+    /* user: { //Solo per facilitare il debug, da togliere e ripristinare quello con null
         id: 2,
         name: 'Marco',
         lastname: 'Zellini'
-    },
+    }, */
     links: [], //number of pages containing books
     currentPage: 1,
     fetchData(url) {
@@ -48,5 +49,6 @@ export const state = reactive({
                     console.error(error);
                 })
         }
-    }
+    },
+
 })

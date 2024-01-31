@@ -38,7 +38,7 @@ export default {
                 axios
                     .post(state.baseURL + '/login', payload)
                     .then(response => {
-                        console.log(response);
+                        // console.log(response);
                         if (response.data.success) {
                             const user = {
                                 id: response.data.result.user_id,
@@ -46,6 +46,7 @@ export default {
                                 lastname: response.data.result.user_lastname
                             }
                             this.state.user = user;
+                            localStorage.setItem('user', JSON.stringify(this.state.user));
 
                             // this.state.user_id = response.data.result.user_id;
                             router.push({ name: 'books' })
