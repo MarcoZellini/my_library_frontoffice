@@ -11,21 +11,26 @@
                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                     <li class="nav-item">
                         <router-link class="nav-link" :class="this.$route.name === 'home' ? 'active' : ''"
-                            :to="{ name: 'home' }">Home</router-link>
+                            :to="{ name: 'home' }" @click="this.handleNavbarCollapse()">Home</router-link>
                     </li>
                     <li class="nav-item" v-if="!this.state.user">
                         <router-link class="nav-link" :class="this.$route.name === 'login' ? 'active' : ''"
-                            :to="{ name: 'login' }">Log
+                            :to="{ name: 'login' }" @click="this.handleNavbarCollapse()">Log
                             in</router-link>
+                    </li>
+                    <li class="nav-item" v-if="!this.state.user">
+                        <router-link class="nav-link" :class="this.$route.name === 'register' ? 'active' : ''"
+                            :to="{ name: 'register' }" @click="this.handleNavbarCollapse()">Register</router-link>
                     </li>
                     <li class="nav-item" v-if="this.state.user">
                         <router-link class="nav-link" :class="this.$route.name === 'books' ? 'active' : ''"
-                            :to="{ name: 'books' }">Book
+                            :to="{ name: 'books' }" @click="this.handleNavbarCollapse()">Book
                             List</router-link>
                     </li>
                     <li class="nav-item" v-if="this.state.user">
                         <router-link class="nav-link" :class="this.$route.name === 'logout' ? 'active' : ''"
-                            :to="{ name: 'login' }" @click="logout()">Log out</router-link>
+                            :to="{ name: 'login' }" @click="logout(); this.handleNavbarCollapse()">Log
+                            out</router-link>
                     </li>
                 </ul>
             </div>
@@ -42,10 +47,15 @@ export default {
         return {
             state
         }
-    }, methods: {
+    },
+    methods: {
         logout() {
             this.state.user = null;
             localStorage.removeItem('user');
+        },
+        handleNavbarCollapse() {
+            const navbarCollapse = document.getElementById('collapsibleNavId');
+            navbarCollapse.classList.toggle('show');
         }
     }
 }

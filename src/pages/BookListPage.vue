@@ -30,10 +30,10 @@
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4">
-                <div v-if="this.state.bookList" class="col" v-for=" book  in  this.state.bookList ">
+                <div v-if="this.state.bookList.length > 0" class="col" v-for=" book  in  this.state.bookList ">
                     <AppBook :bookId="book.id" :title="book.title" :author="book.author" />
                 </div>
-                <div v-else>There are no books in here! Start adding one!</div>
+                <div v-else class="mx-auto text-center fs-1">There are no books in here! Start adding one!</div>
             </div>
         </div>
     </div>
@@ -41,7 +41,6 @@
 
 <script>
 import { state } from '../state.js';
-import { router } from '../router.js'
 import AppBook from '../components/AppBook.vue';
 
 export default {

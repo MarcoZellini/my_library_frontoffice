@@ -109,7 +109,6 @@ export default {
             axios
                 .patch(`${this.state.baseURL}/books/${this.$route.params.id}/update_readings`, payload)
                 .then(response => {
-                    console.log(response);
                     this.updatePageBook();
                 })
                 .catch(error => {
@@ -127,8 +126,6 @@ export default {
 
             axios.delete(`${this.state.baseURL}/books/${this.$route.params.id}/delete`, { data: payload })
                 .then(response => {
-                    // console.log(response);
-
                     const deleteModal = new bootstrap.Modal(document.getElementById('delete_book'));
                     deleteModal.hide();
                     const backdrop = document.querySelector('.modal-backdrop.fade.show')
@@ -159,8 +156,6 @@ export default {
         }
     },
     mounted() {
-        /* const url = `${this.state.baseURL}/books/${this.$route.params.id}`;
-        this.state.fetchSingleBook(url); */
         this.updatePageBook();
     }
 }

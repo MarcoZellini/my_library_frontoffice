@@ -8,11 +8,6 @@ export const state = reactive({
     book: null,
     bookDeleted: false,
     user: null,
-    /* user: { //Solo per facilitare il debug, da togliere e ripristinare quello con null
-        id: 2,
-        name: 'Marco',
-        lastname: 'Zellini'
-    }, */
     links: [], //number of pages containing books
     currentPage: 1,
     fetchData(url) {

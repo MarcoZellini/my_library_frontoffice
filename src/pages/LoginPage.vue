@@ -1,6 +1,6 @@
 <template>
     <div class="container py-5">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center">
             <form class="bg-secondary-subtle p-3 rounded-3" @submit.prevent="login()">
                 <h2 class="text-center mb-4 mx-5">Enter your email to log in!</h2>
                 <div class="form-floating mb-3">
@@ -10,7 +10,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary d-block mx-auto">Log in</button>
             </form>
+            <p class="text-center pt-4">If you don't have an account
+                <router-link :to="{ name: 'register' }">Register</router-link>
+            </p>
         </div>
+
     </div>
 </template>
 
@@ -49,7 +53,7 @@ export default {
                             localStorage.setItem('user', JSON.stringify(this.state.user));
 
                             // this.state.user_id = response.data.result.user_id;
-                            router.push({ name: 'books' })
+                            router.push({ name: 'home' })
                         } else {
                             this.error = response.data.error;
                         }

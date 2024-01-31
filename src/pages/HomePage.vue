@@ -5,6 +5,8 @@
                 <div class="col text-center py-5" v-if="!this.state.user">
                     <h1 class="display-1 fw-bold">Welcome to My Library</h1>
                     <p class="display-6 my-4">Join Us to manage all your books!</p>
+                    <router-link :to="{ name: 'register' }" class="btn btn-primary px-3 py-2">Register</router-link>
+                    <div class="p-2">or</div>
                     <router-link :to="{ name: 'login' }" class="btn btn-primary px-3 py-2">Log
                         in</router-link>
                 </div>

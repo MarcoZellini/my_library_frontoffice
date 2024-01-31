@@ -1,8 +1,8 @@
 import { state } from './state.js';
 import { createWebHashHistory, createRouter } from 'vue-router';
 
-
 import HomePage from './pages/HomePage.vue';
+import RegisterPage from './pages/RegisterPage.vue';
 import LoginPage from './pages/LoginPage.vue';
 import BookListPage from './pages/BookListPage.vue';
 import SingleBookPage from './pages/SingleBookPage.vue';
@@ -15,6 +15,11 @@ const routes = [
         path: '/',
         name: 'home',
         component: HomePage,
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: RegisterPage,
     },
     {
         path: '/login',
@@ -57,7 +62,7 @@ router.beforeEach((to, from) => {
     // console.log('changing page');
     const userLocal = JSON.parse(localStorage.getItem('user'));
     // console.log(userLocal);
-    if ((!state.user || !userLocal) && (to.name !== 'login' && to.name !== 'home')) {
+    if ((!state.user || !userLocal) && (to.name !== 'login' && to.name !== 'register' && to.name !== 'home')) {
         router.push({ name: 'login' })
     }
     if (to.name !== 'books') {
@@ -65,5 +70,6 @@ router.beforeEach((to, from) => {
     }
     // return false
 })
+
 
 export { router }
