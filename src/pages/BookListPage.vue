@@ -1,21 +1,20 @@
 <template>
-    <div class="p-5 mb-4 bg-light rounded-3">
+    <div class="p-5 bg-light rounded-3">
         <div class="container py-5">
             <h1 class="display-3 fw-bold">Hi {{ `${this.state.user?.name}` }} </h1>
             <h2 class="fs-2">Check out all your Books!</h2>
-            <!-- <p class="col-md-8 fs-4">
-                Scroll this page to look at all your books!
-            </p> -->
         </div>
     </div>
     <div id="book_list" class="py-3 py-md-5">
         <div class="container">
-            <div class="d-flex justify-content-between">
-                <router-link class="btn btn-primary mb-3 me-3" :to="{ name: 'new_book' }">
-                    <font-awesome-icon :icon="['fas', 'plus']" />
-                    Aggiungi Libro</router-link>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
+            <div class="row justify-content-between">
+                <div class="col-12 col-md-3 d-flex justify-content-center">
+                    <router-link class="btn btn-primary mb-3" :to="{ name: 'new_book' }">
+                        <font-awesome-icon :icon="['fas', 'plus']" />
+                        Aggiungi Libro</router-link>
+                </div>
+                <nav class="col-12 col-md-9" aria-label="Page navigation">
+                    <ul class="pagination justify-content-center justify-content-md-end">
                         <li role="button" class="page-item"
                             :class="this.state.currentPage === parseInt(link.label) ? 'active' : ''" aria-current="page"
                             v-if="this.state.links" v-for="link in this.state.links"
