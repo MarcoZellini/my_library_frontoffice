@@ -1,8 +1,8 @@
 <template>
-    <div class="container py-5">
-        <div class="d-flex flex-column justify-content-center">
-            <form class="bg-secondary-subtle p-3 rounded-3" @submit.prevent="this.register()">
-                <h2 class="text-center mb-4 mx-3">Fill out this form to register</h2>
+    <div class="container vh-100">
+        <div class="d-flex flex-column justify-content-center h-100">
+            <h1 class="text-center my-4 mx-3">Fill out this form to register</h1>
+            <form class="bg-secondary-subtle p-3 m-5 rounded-3" @submit.prevent="this.register()">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="name" id="name" placeholder="" v-model="this.name" />
                     <label for="name">Name</label>

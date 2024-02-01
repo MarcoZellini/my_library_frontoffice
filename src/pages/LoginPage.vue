@@ -1,8 +1,8 @@
 <template>
-    <div class="container py-5">
-        <div class="d-flex flex-column justify-content-center">
-            <form class="bg-secondary-subtle p-3 rounded-3" @submit.prevent="login()">
-                <h2 class="text-center mb-4 mx-5">Enter your email to log in!</h2>
+    <div class="container vh-100">
+        <div class="d-flex flex-column justify-content-center h-100">
+            <h1 class="text-center my-4 mx-5">Enter your email to log in!</h1>
+            <form class="bg-secondary-subtle p-3 m-5 rounded-3" @submit.prevent="login()">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" name="email" id="email" placeholder="" v-model="email" />
                     <label for="email">E-mail</label>

@@ -1,0 +1,50 @@
+@use './variables' as *;
+
+.bg_dark {
+    background-color: $ml-dark;
+}
+
+.bg_light {
+    background-color: $ml-light;
+}
+
+.bg_primary {
+    background-color: $ml-primary;
+
+    & * {
+        background-color: $ml-primary;
+    }
+
+}
+
+.text_light {
+    color: $ml-light;
+
+    & * {
+        color: $ml-light;
+    }
+
+}
+
+.text_dark {
+    color: $ml-dark;
+
+    & * {
+        color: $ml-dark;
+
+    }
+
+    &:hover * {
+        color: $ml-light;
+    }
+
+}
+
+.text_primary {
+    color: $ml-primary;
+
+    & * {
+        color: $ml-primary;
+    }
+
+}

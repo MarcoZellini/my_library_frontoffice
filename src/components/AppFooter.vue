@@ -1,22 +1,23 @@
 <template>
-    <div id="site_footer" class="bg-dark text-white pt-3">
+    <div id="site_footer" class="bg_dark text_light pt-3">
         <div class="container py-3">
             <div class="row flex-column">
-                <h2 class="text-center">My Library</h2>
-                <p class="text-center my-3 w-50 mx-auto">My Library is a very useful platform where you can add your books
+                <h2 class="text-center text_primary fw-bold">My Library</h2>
+                <p class="text-center my-3 w-50 mx-auto">My Library is a very <span class="text_primary">useful</span>
+                    platform where you can add your books
                     and
-                    have them always with you!</p>
+                    have them <span class="text_primary">always with you!</span></p>
 
                 <div class="w-50 mx-auto">
                     <div class="d-flex justify-content-between align-items-center my-2">
                         <div><a href="#" target="_blank"><font-awesome-icon icon="fab fa-twitter"
-                                    class=" text-white brand_border p-2 btn" /></a>
+                                    class=" text-white brand_border p-2 btn btn_hover_primary" /></a>
                         </div>
                         <div><a href="#" target="_blank"><font-awesome-icon icon="fab fa-instagram"
-                                    class=" text-white brand_border p-2 btn" /></a>
+                                    class=" text-white brand_border p-2 btn btn_hover_primary" /></a>
                         </div>
                         <div><a href="#" target="_blank"><font-awesome-icon icon="fab fa-facebook btn"
-                                    class=" text-white brand_border p-2 btn" /></a>
+                                    class=" text-white brand_border p-2 btn btn_hover_primary" /></a>
                         </div>
                     </div>
                 </div>

@@ -18,9 +18,10 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faMinus } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faTwitter, faInstagram, faFacebook, faArrowLeft, faPenToSquare, faTrash, faPlus)
+library.add(faTwitter, faInstagram, faFacebook, faArrowLeft, faPenToSquare, faTrash, faPlus, faMinus)
 
 createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app');
 

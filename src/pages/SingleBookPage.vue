@@ -1,72 +1,86 @@
 <template>
     <div>
 
-        <div v-if="this.state.book" class="p-5 rounded-3">
-            <div class="container py-0">
+        <div v-if="this.state.book" class="py-3 rounded-3">
+            <div class="container py-5">
                 <div class="row">
                     <div class="col-lg-2 d-none d-lg-block"></div>
                     <div class="col-12 col-lg-8">
-                        <button class="btn btn-primary btn mb-3" type="button" @click="this.goBack()">
-                            <font-awesome-icon :icon="['fas', 'arrow-left']" /> Back
-                        </button>
-                        <h1 class="fw-bold flex-grow-1">{{ this.state.book.title }}</h1>
+
+                        <h1 class="fw-bold flex-grow-1 text-center text-lg-start mb-0">{{ this.state.book.title }}</h1>
+                        <small class="text-center text-lg-start pb-3 mb-0 d-block">{{ this.state.book.author }}</small>
                         <div class="col-lg-2 d-none d-lg-block"></div>
                     </div>
-                    <div class="container py-3">
+
+                    <div class="container">
                         <div class="row">
                             <div class="col-lg-2 d-none d-lg-block"></div>
-                            <div class="col-12 col-lg-4 pt-3">
-                                <img class="img-fluid" src="../assets/img/copertina_libro.jpg" alt="">
+                            <div class="col-12 col-lg-4 pb-3">
+                                <!-- <img class="img-fluid rounded-3 book_image" src="../assets/img/copertina_libro.jpg" alt=""> -->
+                                <div class="d-flex justify-content-center align-items-center book_cover text-white">
+                                    <h1>COVER</h1>
+                                </div>
                             </div>
                             <div class="col-lg-4">
-                                <div class="d-flex align-items-center">
-                                    <button type="button" class="btn btn-primary btn-sm me-2 mt-2"
-                                        @click="this.updateTotalReadings()">
+                                <div class="mb-2">
+                                    <p class="text-center text-lg-start mb-0">ISBN Code: {{ this.state.book.isbn }}</p>
+                                </div>
+                                <p class="text-center text-lg-start mb-2" v-if="this.state.book?.plot">
+                                    Plot: {{ this.state.book.plot }}
+                                </p>
+                                <div class="d-flex align-items-center justify-content-center justify-content-lg-start my-2">
+                                    <button type="button" class="btn btn-outline-dark  btn-sm me-2"
+                                        @click="this.subtractTotalReadings()">
+                                        <font-awesome-icon :icon="['fas', 'minus']" class="text_dark" />
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm me-2"
+                                        @click="this.addTotalReadings()">
                                         <font-awesome-icon :icon="['fas', 'plus']" />
                                     </button>
                                     <small>
-                                        <strong>Totale Letture: </strong>
+                                        <strong>Total Readings: </strong>
                                         {{ this.state.book.total_readings }}
                                     </small>
                                 </div>
-                                <div class="my-2">
-                                    <p class="m-0"><strong>Author: </strong>{{ this.state.book.author }}</p>
-                                    <p class="m-0"><strong>ISBN: </strong>{{ this.state.book.isbn }}</p>
+
+                                <div class="d-flex justify-content-center  justify-content-lg-start">
+                                    <router-link class="btn btn-secondary mx-2 ms-lg-0 my-2" :to="{ name: 'books' }">
+                                        <font-awesome-icon :icon="['fas', 'arrow-left']" /> Back
+                                    </router-link>
+                                    <router-link class="btn btn-warning mx-2 ms-lg-0 my-2" :to="{ name: 'edit_book' }">
+                                        <font-awesome-icon :icon="['far', 'pen-to-square']" />
+                                        Edit
+                                    </router-link>
+                                    <!-- Modal trigger button -->
+                                    <!-- Modal trigger button -->
+                                    <button type="button" class="btn btn-danger mx-2 ms-lg-0 my-2" data-bs-toggle="modal"
+                                        data-bs-target="#delete_book">
+                                        <font-awesome-icon :icon="['fas', 'trash']" />
+                                        Delete
+                                    </button>
                                 </div>
-                                <p class="fs-6 my-2" v-if="this.state.book?.plot">
-                                    <strong>Plot: </strong>{{ this.state.book.plot }}
-                                </p>
-                                <router-link class="btn btn-warning btn-lg me-2 my-2" :to="{ name: 'edit_book' }">
-                                    <font-awesome-icon :icon="['far', 'pen-to-square']" />
-                                    Modifica
-                                </router-link>
-                                <!-- Modal trigger button -->
-                                <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
-                                    data-bs-target="#delete_book">
-                                    <font-awesome-icon :icon="['fas', 'trash']" />
-                                    Elimina
-                                </button>
 
                                 <!-- Modal Body -->
-                                <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                                <div class="modal fade" id="delete_book" tabindex="-1" data-bs-backdrop="static"
-                                    data-bs-keyboard="false" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                                <div class="modal fade" id="delete_book" tabindex="-1" role="dialog"
+                                    aria-labelledby="modalTitleId" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
                                         role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modal">
+                                                <h5 class="modal-title" id="modalTitleId">
                                                     Delete Book
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">Warning! This operation cannot be undone!</div>
+                                            <div class="modal-body"><strong>Warning!</strong> This operation cannot be
+                                                undone!
+                                            </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                     Close
                                                 </button>
-                                                <button type="button" class="btn btn-danger"
+                                                <button type="button" class="btn btn-primary"
                                                     @click="this.deleteBook(this.$route.params.id)">Delete</button>
                                             </div>
                                         </div>
@@ -101,15 +115,39 @@ export default {
         }
     },
     methods: {
-        updateTotalReadings() {
+        addTotalReadings() {
             const payload = {
-                user_id: this.state.user.id
+                user_id: this.state.user.id,
+                total_readings: ++this.state.book.total_readings
             }
 
             axios
                 .patch(`${this.state.baseURL}/books/${this.$route.params.id}/update_readings`, payload)
                 .then(response => {
-                    this.updatePageBook();
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        },
+        subtractTotalReadings() {
+
+            let readings_counter;
+
+            if (this.state.book.total_readings > 0) {
+                readings_counter = --this.state.book.total_readings
+            } else {
+                return false
+            }
+
+
+            const payload = {
+                user_id: this.state.user.id,
+                total_readings: readings_counter
+            }
+
+            axios
+                .patch(`${this.state.baseURL}/books/${this.$route.params.id}/update_readings`, payload)
+                .then(response => {
                 })
                 .catch(error => {
                     console.error(error);
@@ -149,10 +187,6 @@ export default {
                     console.error(error);
                 })
 
-        },
-        goBack() {
-            this.state.book = null;
-            router.push({ name: 'books' })
         }
     },
     mounted() {
@@ -161,4 +195,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.book_image {
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: bottom;
+}
+</style>

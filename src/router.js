@@ -68,7 +68,10 @@ router.beforeEach((to, from) => {
     if (to.name !== 'books') {
         state.bookDeleted = false;
     }
-    // return false
+
+    if (from.name === 'book' && to.name === 'books') {
+        state.book = null;
+    }
 })
 
 
